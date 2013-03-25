@@ -5,7 +5,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Welcome to Town</title>
+	<title>Welcome to CodeIgniter</title>
 
 	<style type="text/css">
 
@@ -66,37 +66,51 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 		-moz-box-shadow: 0 0 8px #D0D0D0;
 		-webkit-box-shadow: 0 0 8px #D0D0D0;
 	}
+	td {
+		padding-right: 5px;
+		padding-left: 5px;
+	}
 	</style>
 </head>
 <body>
 
 <div id="container">
-	<h1>Welcome to Town!</h1>
+	<h1>Welcome to Machine List!</h1>
 	
-	<div id="flash_msg">
-		<?= isset($flash_msg)?$flash_msg:""; ?>
-	</div>
+	<div id="flash_msg"><?= isset($flash_msg)?$flash_msg:""; ?></div>
 
 	<div id="body">
-		<?=form_open('home/login')?>
-		<ul>
-			<li>
-				ID :
-			</li>
-			<li>
-				<input type="text" name="id">
-			</li>
-			<li>
-				PW :
-			</li>
-			<li>
-				<input type="password" name="password">
-			</li>
-			<li>
-				<input type="submit" value="login"> 
-			</li>
-		</ul>
-		</form>
+		<?=anchor('home/logout', 'logout')?>
+
+		<table>
+		<tr>
+			<th>id</th><th>hw addr</th><th>memo</th><th>func</th>
+		</tr>
+<?
+	foreach ($machines as $m) {
+		echo "<tr><td>".$m['id']."</td>
+		<td>". anchor('home/wake_machine/'.$m['id'], $m['hwaddr']) ."</td>
+		<td>".$m['memo']."</td>
+		<td>".anchor('home/del_machine/'.$m['id'], 'del')."</td></tr>";
+	}
+?>
+		</table>
+<hr>
+		<?=form_open('home/new_machine')?>
+			<table>
+				<tr>
+					<th>hw addr</th>
+					<th>memo</th>
+					<th>&nbsp;</th>
+				</tr>
+				<tr>
+					<td><input type="text" name="hwaddr"/></td>
+					<td><input type="text" name="memo" size="40"/></td>
+					<td><input type="submit" value="save" /></td>
+				</tr>
+				
+			</table>
+		<?=form_close()?>
 	</div>
 
 	<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>
