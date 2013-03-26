@@ -1,4 +1,13 @@
 ###################
+What is Town
+###################
+
+Town is a WOL manager Based on Codeigniter (PHP,SQLITE3).
+
+default id/pw is admin
+
+
+###################
 What is CodeIgniter
 ###################
 
